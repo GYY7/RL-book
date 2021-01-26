@@ -22,13 +22,11 @@ class SnakesAndLaddersMPFinite(FiniteMarkovProcess[PlayerState]):
 
     def get_transition_map(self) \
     -> Transition[PlayerState]:
-        d: Dict[PlayerState, Categorical[PlayerState]] = {}
+        d: Dict[PlayerState, Optional[Categorical[PlayerState]]] = {}
         for i in range(101):
             states_prob_map: Mapping[PlayerState, float] = {}
             end = min(i+7, 101)
             prob = 1/6
-            if i == 100:
-                d[PlayerState(100)] = None
             for j in range(i+1, end):
                 if j == end - 1:
                     prob = 1 - (end - i - 2) / 6
@@ -39,24 +37,32 @@ class SnakesAndLaddersMPFinite(FiniteMarkovProcess[PlayerState]):
                 else:
                     states_prob_map[PlayerState(j)] = prob
             d[PlayerState(i)] = Categorical(states_prob_map)
+            if i == 100:
+                d[PlayerState(100)] = None
         return d
 
+if __name__ == '__main__':
 
-snake_to_positions = [1, 6, 8, 14, 17, 34, 37, 50, 42, 54, 63]
-snake_positions = [38, 31, 49, 65, 53, 70, 76, 88, 94, 98, 82]
-ladder_to_positions = [35, 39, 41, 48, 51, 57, 74, 83, 85, 90, 92]
-ladder_positions = [28, 3, 20, 7, 12, 25, 45, 77, 60, 67, 69]
-sl_mp = SnakesAndLaddersMPFinite(snake_positions, snake_to_positions, ladder_positions, ladder_to_positions)
-# print(sl_mp)
-transition_map = sl_mp.get_transition_map()
-traces_steps = []
-for k in range(10000):
-    pos_lst = []
-    try:
-        for pos in sl_mp.simulate(transition_map[PlayerState(0)]):
-            pos_lst.append(pos)
-    except IndexError:
-        traces_steps.append(len(pos_lst))
+    snake_to_positions = [1, 6, 8, 14, 17, 34, 37, 50, 42, 54, 63]
+    snake_positions = [38, 31, 49, 65, 53, 70, 76, 88, 94, 98, 82]
+    ladder_to_positions = [35, 39, 41, 48, 51, 57, 74, 83, 85, 90, 92]
+    ladder_positions = [28, 3, 20, 7, 12, 25, 45, 77, 60, 67, 69]
+    sl_mp = SnakesAndLaddersMPFinite(snake_positions, snake_to_positions, ladder_positions, ladder_to_positions)
 
-plt.hist(traces_steps, bins=20)
-plt.show()
+    print(sl_mp)
+
+    transition_map = sl_mp.get_transition_map()
+    traces_steps = []
+    count = 0
+    for trace in sl_mp.traces(transition_map[PlayerState(0)]):
+        step = 0
+        count += 1
+        for pos in trace:
+            step += 1
+            if pos == PlayerState(100):
+                traces_steps.append(step)
+        if count == 10000:
+            break
+    plt.hist(traces_steps, bins=20)
+    plt.show()
+
