@@ -66,7 +66,7 @@ class SnakesAndLaddersMRPFinite(FiniteMarkovRewardProcess[PlayerState]):
                     to_state_pos = self.ladder_to_positions[self.ladder_positions.index(j)]
                 else:
                     to_state_pos = j
-                states_prob_map[(PlayerState(to_state_pos), to_state_pos - i)] = prob
+                states_prob_map[(PlayerState(to_state_pos), 1)] = prob
             d[PlayerState(i)] = Categorical(states_prob_map)
             if i == 100:
                 d[PlayerState(100)] = None
@@ -80,7 +80,7 @@ if __name__ == '__main__':
     ladder_positions = [28, 3, 20, 7, 12, 25, 45, 77, 60, 67, 69]
     sl_mp = SnakesAndLaddersMPFinite(snake_positions, snake_to_positions, ladder_positions, ladder_to_positions)
     sl_mrp = SnakesAndLaddersMRPFinite(snake_positions, snake_to_positions, ladder_positions, ladder_to_positions)
-    print(sl_mrp.display_value_function(1/6))
+    print(sl_mrp.display_value_function(1))
 
     transition_map = sl_mp.get_transition_map()
     traces_steps = []
@@ -92,14 +92,14 @@ if __name__ == '__main__':
             step += 1
             if pos == PlayerState(100):
                 traces_steps.append(step)
-        if count == 10000:
+        if count == 50000:
             break
     plt.hist(traces_steps, bins=20)
     plt.show()
 
     mean = 0
     for step in set(traces_steps):
-        step_freq = traces_steps.count(step)/10000
+        step_freq = traces_steps.count(step)/50000
         mean += step*step_freq
     print(mean)
 

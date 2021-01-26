@@ -30,7 +30,7 @@ class FrogPuzzleMPFinite(FiniteMarkovProcess[FrogState]):
 
 if __name__ == '__main__':
     fp_mp = FrogPuzzleMPFinite(10)
-    # print(fp_mp)
+    print(fp_mp)
     transition_map = fp_mp.get_transition_map()
     traces_steps = []
     count = 0
