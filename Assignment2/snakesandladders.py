@@ -102,5 +102,5 @@ if __name__ == '__main__':
     for step in set(traces_steps):
         step_freq = traces_steps.count(step)/50000
         mean += step*step_freq
-    print(mean)
+    print('simulated expected number of dices:', mean)
 
