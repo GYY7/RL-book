@@ -22,7 +22,7 @@ class FrogPuzzleMPFinite(FiniteMarkovProcess[FrogState]):
         for i in range(self.num_leaves):
             states_prob_map: Mapping[FrogState, float] = {}
             for j in range(i + 1, self.num_leaves + 1):
-                states_prob_map[FrogState(j)] =  1/(self.num_leaves - i + 1)
+                states_prob_map[FrogState(j)] = 1/(self.num_leaves - i + 1)
             d[FrogState(i)] = Categorical(states_prob_map)
         d[FrogState(self.num_leaves)] = None
         return d

@@ -72,6 +72,7 @@ class SnakesAndLaddersMRPFinite(FiniteMarkovRewardProcess[PlayerState]):
                 d[PlayerState(100)] = None
         return d
 
+
 if __name__ == '__main__':
 
     snake_to_positions = [1, 6, 8, 14, 17, 34, 37, 50, 42, 54, 63]
