@@ -40,8 +40,10 @@ class FrogCroak(FiniteMarkovDecisionProcess[FrogState, float]):
                 prob_dict_a: Dict[Tuple[FrogState, float], float] = {(FrogState(i + 1), 0): 1 - i / (self.num_pads - 1),
                         (FrogState(i - 1), _reward): i / (self.num_pads - 1)}
                 d1['A'] = Categorical(prob_dict_a)
-                prob_dict_b: Dict[Tuple[FrogState, float], float] = {(FrogState(j), 1/(self.num_pads-1)): 1/(self.num_pads-1)
-                                                                     for j in range(self.num_pads)}
+                prob_dict_b: Dict[Tuple[FrogState, float], float] = {(FrogState(j), 0): 1/(self.num_pads-1)
+                                                                     for j in range(self.num_pads) if j != i or
+                                                                     j != self.num_pads - 2}
+                prob_dict_b[(FrogState(self.num_pads-2), 1/(self.num_pads-1))] = 1/(self.num_pads-1)
                 d1['B'] = Categorical(prob_dict_b)
                 d[state] = d1
         return d
