@@ -20,6 +20,7 @@ class FrogState:
 
 FrogCroakMapping = StateActionMapping[FrogState, float]
 
+
 class FrogCroak(FiniteMarkovDecisionProcess[FrogState, float]):
 
     def __init__(self, num_pads):
