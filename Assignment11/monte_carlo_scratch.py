@@ -14,7 +14,7 @@ A = TypeVar('A')
 
 def mc_prediction(
         traces: Iterable[Iterable[Tuple[S, float]]],
-        count_to_weight_func: Callable[[int], float],
+        count_to_weight_func: Callable[[int], float]
 ) -> Tabular[S]:
     '''
     Returns the approximated value
