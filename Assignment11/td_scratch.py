@@ -17,7 +17,7 @@ def td_prediction(
         γ: float
 ) -> Tabular[S]:
     """
-    Similar as Monte Carlo Scratch except replacing return y with R_{t+1} + gamma*V(S_{t+1})
+    Similar as Monte Carlo Scratch except replacing return y with R_{t+1} + gamma*V(S_{t+1}) for updates
     """
     values_map: Dict[S, float] = {}
     counts_map: Dict[S, int] = {}
