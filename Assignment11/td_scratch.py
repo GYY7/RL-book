@@ -21,10 +21,17 @@ def td_prediction(
     """
     values_map: Dict[S, float] = {}
     counts_map: Dict[S, int] = {}
+    count = 0
     for transition in transitions:
-        state = transition.state
-        counts_map[state] = counts_map.get(state, 0) + 1
-        weight: float = count_to_weight_func(counts_map.get(state, 0))
-        y = transition.next_state.reward + γ * values_map[transition.next_state]
-        values_map[state] = weight * y + (1 - weight) * values_map.get(state, 0.)
+        if count > 1000:
+            break
+        else:
+            state = transition.state
+            counts_map[state] = counts_map.get(state, 0) + 1
+            weight: float = count_to_weight_func(counts_map.get(state, 0))
+            if transition.next_state not in values_map:
+                values_map[transition.next_state] = 0
+            y = transition.reward + γ * values_map[transition.next_state]
+            values_map[state] = weight * y + (1 - weight) * values_map.get(state, 0.)
+            count += 1
     return Tabular(values_map, counts_map, count_to_weight_func)
