@@ -39,3 +39,4 @@ def td_prediction(
             values_map[state] = weight * y + (1 - weight) * values_map.get(state, 0.)
             count += 1
     return Tabular(values_map, counts_map, count_to_weight_func)
+

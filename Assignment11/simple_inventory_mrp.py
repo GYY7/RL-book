@@ -38,3 +38,19 @@ print(td_pred.evaluate(non_terminal_states))
 print("-----MC Value Function-----:\n")
 mc_pred = mc_prediction(transitions, count_to_weight_func, user_gamma)
 print(mc_pred.evaluate(non_terminal_states))
+
+
+# -----MRP Value Function-----:
+#
+# [-35.51060433 -27.93226038 -28.34511593 -28.93226038 -29.34511593
+#  -30.34511593]
+# -----TD Value Function-----:
+#
+# max steps:  175
+# [-35.49113211 -28.2107163  -28.07584272 -29.55047788 -29.65455173
+#  -29.96811656]
+# -----MC Value Function-----:
+#
+# max steps:  175
+# [-35.48851434 -27.07014117 -28.32057149 -28.65444812 -30.02546492
+#  -30.43391941]
