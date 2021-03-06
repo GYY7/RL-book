@@ -4,7 +4,7 @@ from rl.distribution import Categorical
 from Assignment11.td_scratch import td_prediction
 from dataclasses import dataclass, replace, field
 from Assignment11.monte_carlo_scratch import mc_prediction
-
+from Assignment12.td_nbootstrap import td_nbootstrap_tabular_prediction
 user_capacity = 2
 user_poisson_lambda = 1.0
 user_holding_cost = 1.0
@@ -39,7 +39,9 @@ print("-----MC Value Function-----:\n")
 mc_pred = mc_prediction(transitions, count_to_weight_func, user_gamma)
 print(mc_pred.evaluate(non_terminal_states))
 
-
+print("-----TD NBOOTSTRAP Value Function-----:\n")
+td_boot_pred = td_nbootstrap_tabular_prediction(transitions, count_to_weight_func, user_gamma, 10)
+print(td_boot_pred.evaluate(non_terminal_states))
 # -----MRP Value Function-----:
 #
 # [-35.51060433 -27.93226038 -28.34511593 -28.93226038 -29.34511593
