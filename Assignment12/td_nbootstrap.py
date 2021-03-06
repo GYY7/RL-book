@@ -72,14 +72,10 @@ def td_nbootstrap_prediction(
       γ -- discount rate (0 < γ ≤ 1)
 
     '''
-    def n_bootstrap(transition, v, n):
-        g_tn = transition.reward
-        count = 0
-        while count < n:
-            g_tn += 0
     def step(v, transition):
         return v.update([(transition.state,
                           transition.reward + γ * v(transition.next_state))])
 
+    # how to replace transition.reward + γ * v(transition.next_state) with G_{t,n}
     return iterate.accumulate(transitions, step, initial=approx_0)
 
