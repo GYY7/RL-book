@@ -48,9 +48,9 @@ print(td_boot_pred.evaluate(non_terminal_states))
 
 print("-----TD Lambda Value Function-----:\n")
 converge_iters = []
-lambdas = [0.75, 1]  # 0, 0.25, 0.5,
+lambdas = [0, 0.25, 0.5, 0.75, 1]  # 0, 0.25, 0.5,
 for lambd in lambdas:
-    td_lambda_pred, converge = td_lambda_tabular_prediction(transitions, count_to_weight_func, user_gamma, 0.5)
+    td_lambda_pred, converge = td_lambda_tabular_prediction(transitions, count_to_weight_func, user_gamma, lambd)
     print(td_lambda_pred.evaluate(non_terminal_states), converge)
     converge_iters.append(converge)
 

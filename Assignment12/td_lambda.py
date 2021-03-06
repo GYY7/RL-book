@@ -14,7 +14,7 @@ def td_lambda_tabular_prediction(
         count_to_weight_func: Callable[[int], float],
         gamma: float,
         lambd: float,
-        max_steps: int = 4000,
+        max_steps: int = 2000,
         tolerance: float = 1e-200
 ) -> Tuple[Tabular[S], int]:
     """
